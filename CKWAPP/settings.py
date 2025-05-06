@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd party
     "django_extensions",
-    "django_bootstrap5",
+    "bootstrap5",
     #myapps
     "webapp",
 ]
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'CKWAPP.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'src/webapp/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

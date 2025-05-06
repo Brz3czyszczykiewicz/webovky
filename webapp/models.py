@@ -29,3 +29,8 @@ class Customer(models.Model):
     customer_phone = models.IntegerField(null=True, blank=True)
     customer_trips = models.ManyToManyField('Trip')
 
+    def __str__(self):
+        return self.customer_id, self.customer_first_name, self.customer_last_name
+
+
+

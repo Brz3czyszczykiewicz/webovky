@@ -12,7 +12,7 @@
         <div class="row mb-3">
             <div class="col">
             <!-- TADY BUDE MENU -->
-            <a href="{% url 'kontakty:contact-list-funkce' %}">Seznam kontaktů</a>&nbsp;&nbsp;
+            <a href="{% url 'webapp:customer_detail' pk=customer.id %}">Seznam kontaktů</a>&nbsp;&nbsp;
                 {% block context_menu %}{% endblock %}&nbsp;&nbsp;
             </div>
         </div>

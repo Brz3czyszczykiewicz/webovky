@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import CustomerListBaseView
+from webapp.views import CustomerListBaseView, CustomerDetailView
 
 app_name = 'webapp'
 
@@ -29,7 +29,7 @@ urlpatterns = [
 
 #DETAIL
 
-
+    path("customer-detail/<int:pk>/", CustomerDetailView.as_view(), name='customer_detail'),
 
 #CREATE
 
