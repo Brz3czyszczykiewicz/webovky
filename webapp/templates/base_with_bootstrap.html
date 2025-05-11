@@ -9,12 +9,28 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="COL mb-1">
             <div class="col">
-            <!-- TADY BUDE MENU -->
-            <a href="{% url 'webapp:customer_detail' pk=customer.id %}">Seznam kontaktů</a>&nbsp;&nbsp;
+            <!-- PANEL FOR OWNER, NEED TO HIDE FROM CUSTOMER EVENTUALY -->
+            <p>ČÁST PRO ADMINA</p>
+            <a href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>
+            <a href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 {% block context_menu %}{% endblock %}&nbsp;&nbsp;
             </div>
+
+            <div class="col">
+            <!-- CUSTOMER FIELD, SHOULD BE SEEN BY EVERYONE  -->
+            <p>ČÁST PRO ZÁKAZNÍKA</p>
+                <a href="{% url 'webapp:customer_list' %}">Zájezdy</a> &nbsp;
+                <a href="{% url 'webapp:customer_create' %}">Registrace</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">Přihlásit se na novou cestu</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">Fotogalerie</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">Můj profil</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">FAQ</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">O nás</a>&nbsp;&nbsp;&nbsp;
+
+            </div>
+
         </div>
 
         {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}

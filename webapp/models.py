@@ -12,13 +12,15 @@ class Trip(models.Model):
     guides = models.ManyToManyField('Guide')
 
     def __str__(self):
-        return self.trip_name
-
+        return f"{self.trip_name}"
 # 2 Model Guide linked with Trip model
 class Guide(models.Model):
     guide_id = models.AutoField(primary_key=True)
     guide_name = models.CharField(max_length=256)
     guided_trips = models.ManyToManyField('Trip')
+
+    def __str__(self):
+        return f"{self.guide_name}"
 
 # 3 Model Customer linked with Trip model to easily determine who is going where
 class Customer(models.Model):
@@ -30,7 +32,7 @@ class Customer(models.Model):
     customer_trips = models.ManyToManyField('Trip')
 
     def __str__(self):
-        return self.customer_id, self.customer_first_name, self.customer_last_name
+        return f"{self.customer_first_name} {self.customer_last_name}"
 
 
 

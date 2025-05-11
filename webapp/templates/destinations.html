@@ -1,0 +1,16 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} Seznam cest {% endblock %}
+
+{% block hlavni_nadpis %} Seznam cest {% endblock %}
+
+{% block content %}
+
+<h1>Aktuální výběr</h1>
+{% for destination in destinations %}
+    <li class="list-group-item">
+        {{destination.name}}
+    </li>
+{% endfor %}
+{% endblock %}

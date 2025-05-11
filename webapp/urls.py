@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import CustomerListBaseView, CustomerDetailView
+from webapp.views import (CustomerListBaseView, CustomerDetailView,
+                          CustomerListingView, customer_create, trip_create,
+                          work_in_progress)
+
 
 app_name = 'webapp'
 
@@ -24,7 +27,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 #LISTING
 
-    path("customer-list/", CustomerListBaseView.as_view(), name='customer_list'),
+    path("customer-list-base/", CustomerListBaseView.as_view(), name='customer_list_base'),
+
+    path("customer-list/", CustomerListingView.as_view(), name='customer_list'),
+
+    path("work-in-progress/", work_in_progress, name="work_in_progress"),
 
 
 #DETAIL
@@ -32,6 +39,8 @@ urlpatterns = [
     path("customer-detail/<int:pk>/", CustomerDetailView.as_view(), name='customer_detail'),
 
 #CREATE
+    path("customer-create/", customer_create, name='customer_create'),
+    path("trip-create/", trip_create, name="trip_create")
 
 
 

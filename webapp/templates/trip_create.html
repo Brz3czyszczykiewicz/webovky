@@ -1,0 +1,21 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} Vytvoření cesty {% endblock %}
+
+{% block hlavni_nadpis %} Vytvoření cesty {% endblock %}
+
+{% block content %}
+    <form method="post" action=".">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">
+            Vytvořit
+        </button>
+
+
+    </form>
+
+
+
+{% endblock %}
