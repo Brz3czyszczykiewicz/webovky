@@ -13,8 +13,9 @@
             <div class="col">
             <!-- PANEL FOR OWNER, NEED TO HIDE FROM CUSTOMER EVENTUALY -->
             <p>ČÁST PRO ADMINA</p>
-            <a href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>
-            <a href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>&nbsp;&nbsp;
+            <a href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>&nbsp;&nbsp;
+            <a href="{% url 'webapp:trip_list' %}">Seznam cest</a>&nbsp;&nbsp;
                 {% block context_menu %}{% endblock %}&nbsp;&nbsp;
             </div>
 
@@ -22,7 +23,7 @@
             <!-- CUSTOMER FIELD, SHOULD BE SEEN BY EVERYONE  -->
             <p>ČÁST PRO ZÁKAZNÍKA</p>
                 <a href="{% url 'webapp:customer_list' %}">Zájezdy</a> &nbsp;
-                <a href="{% url 'webapp:customer_create' %}">Registrace</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:customer_create' %}">Nezávazná registrace</a>&nbsp;&nbsp;&nbsp;
                 <a href="{% url 'webapp:work_in_progress' %}">Přihlásit se na novou cestu</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{% url 'webapp:work_in_progress' %}">Fotogalerie</a>&nbsp;&nbsp;&nbsp;
                 <a href="{% url 'webapp:work_in_progress' %}">Můj profil</a>&nbsp;&nbsp;&nbsp;

@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from webapp.views import (CustomerListBaseView, CustomerDetailView,
                           CustomerListingView, customer_create, trip_create,
-                          work_in_progress)
+                          work_in_progress, TripListingView, TripUpdateView,
+                          TripDeleteView)
 
 
 app_name = 'webapp'
@@ -31,6 +32,8 @@ urlpatterns = [
 
     path("customer-list/", CustomerListingView.as_view(), name='customer_list'),
 
+    path("trip-list/", TripListingView.as_view(), name="trip_list"),
+
     path("work-in-progress/", work_in_progress, name="work_in_progress"),
 
 
@@ -40,13 +43,15 @@ urlpatterns = [
 
 #CREATE
     path("customer-create/", customer_create, name='customer_create'),
-    path("trip-create/", trip_create, name="trip_create")
+    path("trip-create/", trip_create, name="trip_create"),
 
 
 
 #UPDATE
+    path("trip-update/<int:pk>/", TripUpdateView.as_view(), name="trip_update"),
 
 
 
 #DELETE
+    path("trip-delete/<int:pk>/", TripDeleteView.as_view(), name="trip_delete"),
 ]

@@ -1,0 +1,15 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} TAB {% endblock %}
+
+{% block hlavni_nadpis %} Odstranit cestu {% endblock %}
+
+{% block content %}
+    <p>Opravdu chcete odstranit tuto cestu: <strong> {{ trip }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger"> Ano, chci mazat </button>
+        <button type="button" class="btn btn-dark" onclick="window.history.back();"> Ne, vraťte mě zpět</button>
+    </form>
+ {% endblock %}

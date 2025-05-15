@@ -1,0 +1,48 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} TAB {% endblock %}
+
+
+
+{% for input in object_list%}
+
+
+
+
+{% endfor %}
+
+
+
+
+
+{% block hlavni_nadpis %} Správa cest{% endblock %}
+
+
+
+
+{% block content %} 
+
+    <div class="row">
+        <div class="col-md-2"><b>Jméno cesty</b></div>
+        <div class="col-md-2"><b>Akce</b></div>
+        <div class="col-md-2"><b>Počet zájemců</b></div>
+        <div class="col-md-2"><b>Náhled</b></div>
+    </div>
+
+    {% for trip in object_list%}
+    <div class="row">
+        <div class="col-6">{{trip.trip_name}}</div>
+         <div class="col-3">
+            <a href="{% url 'webapp:trip_update' trip.pk %}"> Úprava </a>
+             <a href="{% url 'webapp:trip_delete' trip.pk %}"> Odstranit </a>
+
+         </div>
+    </div>
+
+
+
+    {% endfor %}
+
+
+{% endblock %}

@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from webapp.forms import CustomerForm, TripForm
-from webapp.models import Customer
+from webapp.models import Customer, Trip
 from . import models
 
 
@@ -25,8 +26,12 @@ class CustomerListBaseView(TemplateView):
         return super().get(request, *args, **kwargs)
 
 class CustomerListingView(ListView):
-    template_name = "customer_list"
+    template_name = "customer_list.html"
     model = Customer
+
+class TripListingView(ListView):
+    template_name= "trip_list.html"
+    model = Trip
 
 
 def destinations(request):
@@ -76,7 +81,10 @@ def customer_create(request):
 def trip_create(request):
     #class based form for trip creation, based on trip model
     if request.method == "POST":
-        pass
+        form = TripForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/webapp/trip-list/")
     else:
         form = TripForm
 
@@ -86,11 +94,21 @@ def trip_create(request):
 #----------------
 #UPDATE VIEWS
 #----------------
+class TripUpdateView(UpdateView):
+    template_name = "trip_update.html"
+    form_class = TripForm
+    model = Trip
+    success_url = "/webapp/trip-list/"
 
 
 
 #----------------
 #DELETE VIEWS
 #----------------
+
+class TripDeleteView(DeleteView):
+    template_name = "trip_delete.html"
+    model = Trip
+    success_url = "/webapp/trip-list/"
 
 

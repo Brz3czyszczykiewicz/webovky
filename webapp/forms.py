@@ -27,6 +27,7 @@ class CustomerForm(forms.ModelForm):
 
         widgets = {
             "customer_first_name": forms.TextInput(attrs={'class': 'form-control'}),
+
         }
 
 
