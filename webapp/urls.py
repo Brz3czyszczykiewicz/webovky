@@ -19,7 +19,8 @@ from django.urls import path
 from webapp.views import (CustomerListBaseView, CustomerDetailView,
                           CustomerListingView, customer_create, trip_create,
                           work_in_progress, TripListingView, TripUpdateView,
-                          TripDeleteView)
+                          TripDeleteView, send_image, TripDetailView, CustomerUpdateView,
+                          CustomerDeleteView)
 
 
 app_name = 'webapp'
@@ -27,7 +28,7 @@ app_name = 'webapp'
 urlpatterns = [
     path('admin/', admin.site.urls),
 #LISTING
-
+    path("image/", send_image, name="send_image"),
     path("customer-list-base/", CustomerListBaseView.as_view(), name='customer_list_base'),
 
     path("customer-list/", CustomerListingView.as_view(), name='customer_list'),
@@ -40,6 +41,7 @@ urlpatterns = [
 #DETAIL
 
     path("customer-detail/<int:pk>/", CustomerDetailView.as_view(), name='customer_detail'),
+    path("trip-detail/<int:pk>/", TripDetailView.as_view(), name='trip_detail'),
 
 #CREATE
     path("customer-create/", customer_create, name='customer_create'),
@@ -49,9 +51,11 @@ urlpatterns = [
 
 #UPDATE
     path("trip-update/<int:pk>/", TripUpdateView.as_view(), name="trip_update"),
+    path("customer-update/<int:pk>/", CustomerUpdateView.as_view(), name="customer_update"),
 
 
 
 #DELETE
     path("trip-delete/<int:pk>/", TripDeleteView.as_view(), name="trip_delete"),
+    path("customer-delete/<int:pk>/", CustomerDeleteView.as_view(), name="customer_delete")
 ]

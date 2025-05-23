@@ -1,0 +1,36 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block bootstrap5_title %} TAB {% endblock %}
+
+{% block hlavni_nadpis %}home page {% endblock %}
+
+{% block bootstrap5_extra_head %}
+    <link rel="stylesheet" href="{% static 'webapp/css/homestyle.css' %}">
+    <script src="{% static 'webapp/js/HOMEPAGE.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+{% for item in trips %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class=bait data-url="{% url 'webapp:trip_detail' item.pk %}">
+                {% if item.thumbnail %}
+                    <img src="{{item.thumbnail.url}}">
+                {% elif item.image %}
+                    <img src="{{item.image.url}}">
+                {% else %}
+                    <p>NO IMAGE</p>
+                {% endif %}
+                <h3 class="name">{{item.trip_name}}</h3>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+

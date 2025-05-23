@@ -1,0 +1,35 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} TAB {% endblock %}
+
+
+
+{% for input in object_list%}
+
+
+
+
+{% endfor %}
+
+
+
+
+
+{% block hlavni_nadpis %} <h1>{{ trip.trip_name }}</h1>{% endblock %}
+
+
+
+{% block content %} 
+
+<h1>{{ trip.trip_name }}</h1>
+<p1>{{ trip.trip_description }}</p1>
+
+<img src="{{ trip.image.url }}">
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<!-- Omezene cislovani stranek -->
+<div class="row">
+    <div class="col text-center">
+        {% for num in page_obj.paginator.page_range %}
+            {% if num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                {% if page_obj.number == num %}
+                    <strong>{{ num }}</strong>&nbsp;&nbsp;
+                {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>&nbsp;&nbsp;
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

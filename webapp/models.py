@@ -8,6 +8,8 @@ class Trip(models.Model):
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
     price = models.IntegerField(null=True, blank=True)
+    image = models.ImageField(upload_to='', null=True, blank=True)
+    thumbnail = models.ImageField(upload_to='', null=True, blank=True)
 
 
     def __str__(self):
@@ -40,6 +42,9 @@ many people are interested in particular travel and who is assigned to guide the
 class TripDetail(Trip):
     customers = models.ManyToManyField('Customer', blank=True)
     guides = models.ManyToManyField('Guide', blank=True)
+
+class CustomerAdmin(Customer):
+    trips = models.ManyToManyField(Trip, blank=True)
 
 
 

@@ -1,0 +1,18 @@
+<!-- Jednoducha pagination Predchozi Dalsi -->
+<div class="row">
+    <div class="col text-center">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">První</a>&nbsp;&nbsp;
+            <a href="?page={{ page_obj.previous_page_number }}">Předchozí</a>
+        {% endif %}
+    </div>
+    <div class="col">
+        <span>Stránka {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}</span>
+    </div>
+    <div class="col">
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Další</a>&nbsp;&nbsp;
+            <a href="?page={{ page_obj.paginator.num_pages }}">Poslední</a>
+        {% endif %}
+    </div>
+</div>

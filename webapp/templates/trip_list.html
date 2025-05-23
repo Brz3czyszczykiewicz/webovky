@@ -34,8 +34,9 @@
     <div class="row">
         <div class="col-6">{{trip.trip_name}}</div>
          <div class="col-3">
-            <a href="{% url 'webapp:trip_update' trip.pk %}"> Úprava </a>
-             <a href="{% url 'webapp:trip_delete' trip.pk %}"> Odstranit </a>
+            <a href="{% url 'webapp:trip_update' trip.pk %}" class="btn btn-primary"> Úprava </a>
+             <a href="{% url 'webapp:trip_delete' trip.pk %}" class=" btn btn-danger"> Odstranit </a>
+             <a href="{% url 'webapp:trip_detail' trip.pk %}" class=" btn btn-info"> Podrobnosti </a>
 
          </div>
     </div>
