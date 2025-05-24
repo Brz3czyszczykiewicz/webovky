@@ -23,9 +23,13 @@
 {% block content %} 
 
 <h1>{{ trip.trip_name }}</h1>
-<p1>{{ trip.trip_description }}</p1>
+<p1>{{ trip.trip_short_description }}</p1>
 
 <img src="{{ trip.image.url }}">
+<p1>{{ trip.trip_description }}</p1>
+<p2>Náklady do {{ trip.price }} Kč</p2>
+
+<a href="{% url 'webapp:customer_create' trip.pk %}" class="btn btn-primary"> Nezávazná registrace </a>
 
 
 

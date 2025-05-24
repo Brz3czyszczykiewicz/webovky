@@ -8,13 +8,16 @@ from webapp.models import Customer, Trip
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = "__all__"
+        exclude = ["customer_trip"]
 
         labels = {
             "customer_first_name": "Jméno",
             "customer_last_name": "Příjmení",
             "customer_email": "Email",
             "customer_phone": "Telefonní číslo",
+            "customer_count": "Počet osob",
+            "customer_message": "Krátká poznámka"
+
         }
 
         placeholder = {
@@ -26,7 +29,13 @@ class CustomerForm(forms.ModelForm):
         }
 
         widgets = {
-            "customer_first_name": forms.TextInput(attrs={'class': 'form-control'}),
+            "customer_first_name": forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            "customer_last_name": forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            "customer_email": forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            "customer_phone": forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            "customer_count": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Kolik Vás bude? :)'}),
+            "customer_message": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Nepovinné'}),
+
 
         }
 

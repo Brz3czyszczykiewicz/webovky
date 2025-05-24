@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
@@ -52,14 +52,19 @@ class TripListingView(ListView):
     template_name= "trip_list.html"
     model = Trip
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        return context
+
 
 #------------------------
 #DETAIL VIEWS
 #------------------------
 
-class CustomerDetailView(TemplateView):
+class CustomerDetailView(DetailView):
     #lists every customer in database
     template_name = "customer_detail.html"
+    model = Customer
 
     def get_context_data(self, **kwargs):
         print("ContactDetailView -> get_context_data")
@@ -75,12 +80,17 @@ class TripDetailView(DetailView):
     template_name = "trip_detail.html"
     model = Trip
 
+class TripAdminView(TripDetailView):
+    template_name = "trip__detail_admin.html"
+    model = Trip
+
 
 
 #----------------
 #CREATE VIEWS
 #----------------
 
+"""
 def customer_create(request):
     #class based form for customer registration, based on customer model, details in forms.py
     if request.method == "POST":
@@ -94,20 +104,37 @@ def customer_create(request):
         form = CustomerForm()
 
     return render(request, "customer_create.html", {"form": form})
+"""
+
+class CustomerCreateView(CreateView):
+# class based form for customer registration, based on customer model, details in forms.py
+    template_name = "customer_create.html"
+    form_class = CustomerForm
+    model = Customer
+    success_url = "/webapp/customer-list/"
+
+    def dispatch(self, request, *args, **kwargs):
+        pk = self.kwargs.get("pk")
+        if pk is not None:
+            self.trip = get_object_or_404(Trip, pk=pk)
+        else:
+            self.trip = None
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["trip"] = self.trip
+        return context
 
 
 
-def trip_create(request):
+class TripCreateView(CreateView):
     #class based form for trip creation, based on trip model
-    if request.method == "POST":
-        form = TripForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("/webapp/trip-list/")
-    else:
-        form = TripForm
+    template_name = "trip_create.html"
+    form_class = TripForm
+    model = Trip
+    success_url = "/webapp/trip-list/"
 
-    return render(request, "trip_create.html", {"form": form})
 
 
 #----------------

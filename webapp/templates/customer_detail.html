@@ -6,8 +6,15 @@
 {% block hlavni_nadpis %} Detail zákazníka{% endblock %}
 
 {% block content %}
-{{customer.first_name}}
-{{customer.last_name}}
-{{customer.email}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <h3 class="name">{{customer.customer_first_name}} {{customer.customer_last_name}}</h3>
+            <h3> Email: {{customer.customer_email}} </h3>
+            <h3> Telefon: {{customer.customer_phone}} </h3>
+            <h3> Rezervace: {{customer.trips.all}} </h3>
+    </div>
+</div>
+
 
 {% endblock %}

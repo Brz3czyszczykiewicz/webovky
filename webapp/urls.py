@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webapp.views import (CustomerListBaseView, CustomerDetailView,
-                          CustomerListingView, customer_create, trip_create,
+                          CustomerListingView, CustomerCreateView, TripCreateView,
                           work_in_progress, TripListingView, TripUpdateView,
                           TripDeleteView, send_image, TripDetailView, CustomerUpdateView,
                           CustomerDeleteView)
@@ -44,8 +44,8 @@ urlpatterns = [
     path("trip-detail/<int:pk>/", TripDetailView.as_view(), name='trip_detail'),
 
 #CREATE
-    path("customer-create/", customer_create, name='customer_create'),
-    path("trip-create/", trip_create, name="trip_create"),
+    path("trip-detail/<int:pk>/customer-create/", CustomerCreateView.as_view(), name='customer_create'),
+    path("trip-create/", TripCreateView.as_view(), name="trip_create"),
 
 
 
