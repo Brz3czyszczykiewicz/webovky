@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import (CustomerListBaseView, CustomerDetailView,
+from webapp.views import (CustomerDetailView,
                           CustomerListingView, CustomerCreateView, TripCreateView,
                           work_in_progress, TripListingView, TripUpdateView,
                           TripDeleteView, send_image, TripDetailView, CustomerUpdateView,
@@ -29,7 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 #LISTING
     path("image/", send_image, name="send_image"),
-    path("customer-list-base/", CustomerListBaseView.as_view(), name='customer_list_base'),
 
     path("customer-list/", CustomerListingView.as_view(), name='customer_list'),
 

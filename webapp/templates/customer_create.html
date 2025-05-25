@@ -3,14 +3,14 @@
 
 {% block bootstrap5_title %} Registrace {% endblock %}
 
-{% block hlavni_nadpis %} Registrace {% endblock %}
+{% block hlavni_nadpis %} Nezávazná registrace na: {{trip.trip_name}} {% endblock %}
 
 {% block content %}
     <form method="post" action=".">
         {% csrf_token %}
         {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary">
-            Registrovat
+            Odeslat poptávku
         </button>
 
 

@@ -12,6 +12,20 @@ class Trip(models.Model):
     image = models.ImageField(upload_to='', null=True, blank=True)
     thumbnail = models.ImageField(upload_to='', null=True, blank=True)
 
+    @property
+    def customer_count(self):
+        """
+        or 1 because first database entries i created had no customer_count making sum unfeasible
+        using related name, goal of this property is to have reference in html to
+        give rough idea of how many people have signed up
+        """
+        return sum((number.customer_count or 1) for number in self.customer_trip.all())
+
+    @property
+    #how many reservations were created
+    def reservation_count(self):
+        return self.customer_trip.all().count()
+
 
     def __str__(self):
         return f"{self.trip_name}"

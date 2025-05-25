@@ -19,20 +19,21 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-md-2"><b>Jméno</b></div>
-        <div class="col-md-2"><b>Příjmení</b></div>
-        <div class="col-md-2"><b>Email</b></div>
-        <div class="col-md-2"><b>Telefonní číslo</b></div>
-        <div class="col-md-2"><b>Rezervace</b></div>
-        <div class="col-md-2"><b>Akce</b></div>
+        <div class="col-1"><b>Jméno</b></div>
+        <div class="col-2"><b>Příjmení</b></div>
+        <div class="col-2"><b>Email</b></div>
+        <div class="col-1"><b>Telefonní číslo</b></div>
+        <div class="col-2"><b>Rezervace</b></div>
+        <div class="col-2 offset-1"><b>Akce</b></div>
     </div>
 
     {% for customer in object_list%}
     <div class="row">
-        <div class="col-2">{{customer.customer_first_name}}</div>
+        <div class="col-1">{{customer.customer_first_name}}</div>
         <div class="col-2">{{customer.customer_last_name}}</div>
         <div class="col-2">{{customer.customer_email}}</div>
-        <div class="col-2">{{customer.customer_phone}}</div>
+        <div class="col-1">{{customer.customer_phone}}</div>
+        <div class="col-2">{{customer.customer_trip.trip_name}}</div>
 
          <div class="col-3">
             <a href="{% url 'webapp:customer_update' customer.pk %}" class="btn btn-primary"> Úprava </a>

@@ -30,22 +30,15 @@ class HomeView(TemplateView):
         return context
 
 
-class CustomerListBaseView(TemplateView):
-    template_name = "customer_list_base.html"
-
-    def get(self, request, *args, **kwargs):
-        customers = Customer.objects.all()
-        if self.extra_context:
-            self.extra_context["customers"] = customers
-        else:
-            self.extra_context = {"customers": customers}
-        return super().get(request, *args, **kwargs)
 
 class CustomerListingView(ListView):
     template_name = "customer_list.html"
     model = Customer
 
-
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context ["trips"] = Trip.objects.all()
+        return context
 
 
 class TripListingView(ListView):
@@ -54,7 +47,10 @@ class TripListingView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        context["customers"] = Customer.objects.all()
         return context
+
+
 
 
 #------------------------
@@ -90,22 +86,6 @@ class TripAdminView(TripDetailView):
 #CREATE VIEWS
 #----------------
 
-"""
-def customer_create(request):
-    #class based form for customer registration, based on customer model, details in forms.py
-    if request.method == "POST":
-        print(request.POST)
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home_page")
-
-    else:
-        form = CustomerForm()
-
-    return render(request, "customer_create.html", {"form": form})
-"""
-
 class CustomerCreateView(CreateView):
 # class based form for customer registration, based on customer model, details in forms.py
     template_name = "customer_create.html"
@@ -114,7 +94,13 @@ class CustomerCreateView(CreateView):
     success_url = "/webapp/customer-list/"
 
     def dispatch(self, request, *args, **kwargs):
+        """
+        CustomerCreateView will only get triggered by the user when accessing through trip detail
+        purpose of this function is to get trip pk so reservation can be linked with specific trip
+        later in form valid
+        """
         pk = self.kwargs.get("pk")
+        #condition for testing purposes, if view is accessed through detail it will never be used
         if pk is not None:
             self.trip = get_object_or_404(Trip, pk=pk)
         else:
@@ -125,6 +111,11 @@ class CustomerCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["trip"] = self.trip
         return context
+
+    def form_valid(self, form):
+        if self.trip:
+            form.instance.customer_trip = self.trip
+        return super().form_valid(form)
 
 
 

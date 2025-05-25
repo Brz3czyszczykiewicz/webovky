@@ -10,6 +10,9 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         exclude = ["customer_trip"]
 
+
+
+
         labels = {
             "customer_first_name": "Jméno",
             "customer_last_name": "Příjmení",
@@ -38,7 +41,13 @@ class CustomerForm(forms.ModelForm):
 
 
         }
-
+    def clean(self):
+        cleaned_data = super().clean()
+        customer_email = cleaned_data.get("customer_email")
+        customer_phone = cleaned_data.get("customer_phone")
+        if not customer_email and not customer_phone:
+            raise forms.ValidationError("Je nutné zadat buď telefon, nebo email")
+        return cleaned_data
 
 class TripForm(forms.ModelForm):
     class Meta:
