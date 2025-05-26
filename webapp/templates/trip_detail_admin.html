@@ -1,0 +1,55 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} TAB {% endblock %}
+
+
+
+{% for input in object_list%}
+
+
+
+
+{% endfor %}
+
+
+
+
+
+{% block hlavni_nadpis %} <h1>{{ trip.trip_name }}</h1>{% endblock %}
+
+
+
+{% block content %} 
+
+<h4 class="mb-2">Detail zájezdu: {{ trip.trip_name }}</h4>
+    <h5> Celkový počet osob: {{ trip.customer_count }}</h5>
+    <h5> Počet rezervací: {{ trip.reservation_count }}</h5>
+<div class="container">
+    <div class="row">
+        <div class="col-4"><strong>Seznam zájemců </strong></div>
+        <div class="col-4"><strong>Detail</strong></div>
+
+        </div>
+        {% for item in customers %}
+            <div class="row">
+                <div class="col-4">{{ item.full_name }}</div>
+                <div class="col-4">
+                    <a href="{% url 'webapp:customer_detail' item.pk %}" class="btn btn-primary"> Detail </a>
+                </div>
+
+            </div>
+
+        {% endfor %}
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}

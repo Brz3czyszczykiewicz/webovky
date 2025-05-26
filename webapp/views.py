@@ -34,6 +34,7 @@ class HomeView(TemplateView):
 class CustomerListingView(ListView):
     template_name = "customer_list.html"
     model = Customer
+    paginate_by = 15
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -77,9 +78,15 @@ class TripDetailView(DetailView):
     model = Trip
 
 class TripAdminView(TripDetailView):
-    template_name = "trip__detail_admin.html"
+    template_name = "trip_detail_admin.html"
     model = Trip
 
+    def get_context_data(self, **kwargs):
+        #selects only customers which signed for particular trip
+        context = super().get_context_data(**kwargs)
+        trip = self.get_object()
+        context["customers"] = trip.customer_trip.all()
+        return context
 
 
 #----------------

@@ -3,20 +3,20 @@
 
 {% block bootstrap5_title %} TAB {% endblock %}
 
-{% block hlavni_nadpis %} Detail zákazníka{% endblock %}
+{% block hlavni_nadpis %} Detail zákazníka: {{customer.full_name}}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-4 mb-4">
-            <h3 class="name">Jméno: {{customer.customer_first_name}} {{customer.customer_last_name}}</h3>
+            <h3 class="name">Jméno: {{customer.full_name}}</h3>
             <h3> Email: {{customer.customer_email}} </h3>
             <h3> Telefon: {{customer.customer_phone}} </h3>
             <h3> Rezervace: {{customer.customer_trip}} </h3>
             <h3>Poznámka: {{customer.customer_message}}</h3>
 
+        </div>
     </div>
 </div>
-
 
 {% endblock %}

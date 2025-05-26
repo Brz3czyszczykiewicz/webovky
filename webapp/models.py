@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MaxLengthValidator, MinLengthValidator
 from django.db import models
 
 #1 Model Trip ment for displaying dynamic data about expeditions organized by the agency
@@ -43,15 +44,18 @@ class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
     customer_first_name = models.CharField(max_length=64, null=True, blank=True)
     customer_last_name = models.CharField(max_length=64, null=True, blank=True)
-    customer_count = models.IntegerField(null=True, blank=True)
+    customer_count = models.PositiveIntegerField(default=1, validators=[MaxValueValidator(30)],)
     customer_email = models.EmailField(null=True, blank=True)
-    customer_phone = models.IntegerField(null=True, blank=True)
+    customer_phone = models.CharField(max_length=14, null=True, blank=True, validators=[MinLengthValidator(9)])
     customer_message = models.TextField(null=True, blank=True)
     customer_trip = models.ForeignKey('Trip', on_delete=models.CASCADE,
                                       null=True, blank=True, related_name='customer_trip')
+    @property
+    def full_name(self):
+        return f"{self.customer_first_name} {self.customer_last_name}"
 
     def __str__(self):
-        return f"{self.customer_first_name} {self.customer_last_name}"
+        return self.full_name
 
 """
 4 Model inherits from Trip, ment for internal administration, to show how 
