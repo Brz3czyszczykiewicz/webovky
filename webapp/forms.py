@@ -57,11 +57,12 @@ class TripForm(forms.ModelForm):
         labels = {
             "start_time": "Od",
             "end_time": "Do",
+            "price": "Cena",
         }
 
         help_texts = {}
 
         widgets = {
-            "start_time": forms.DateInput(attrs={'class': 'form-control', "type":"date"}),
-            "end_time": forms.DateInput(attrs={'class': 'form-control', "type":"date"}),
+            "start_time": forms.TextInput(attrs={'class': 'form-control'}),
+            "end_time": forms.TextInput(attrs={'class': 'form-control'}),
         }

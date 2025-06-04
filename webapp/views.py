@@ -26,7 +26,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context ["trips"] = Trip.objects.all()
+        context ["trips"] = Trip.objects.all()[:6]
         return context
 
 
@@ -49,6 +49,14 @@ class TripListingView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context["customers"] = Customer.objects.all()
+        return context
+
+class Gallery(ListView):
+    template_name="gallery.html"
+    model = Trip
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context["images"] = Trip.get_directory_images()
         return context
 
 
@@ -76,6 +84,7 @@ def work_in_progress(request):
 class TripDetailView(DetailView):
     template_name = "trip_detail.html"
     model = Trip
+    context_object_name = "trip"
 
 class TripAdminView(TripDetailView):
     template_name = "trip_detail_admin.html"
@@ -163,7 +172,7 @@ class TripDeleteView(DeleteView):
 
 class CustomerDeleteView(DeleteView):
     template_name="customer_delete.html"
-    model = CustomerAdmin
+    model = Customer
     success_url = "/webapp/customer-list/"
 
 

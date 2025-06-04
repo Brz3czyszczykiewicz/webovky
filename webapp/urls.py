@@ -20,7 +20,7 @@ from webapp.views import (CustomerDetailView,
                           CustomerListingView, CustomerCreateView, TripCreateView,
                           work_in_progress, TripListingView, TripUpdateView,
                           TripDeleteView, send_image, TripDetailView, CustomerUpdateView,
-                          CustomerDeleteView, TripAdminView)
+                          CustomerDeleteView, TripAdminView, Gallery)
 
 
 app_name = 'webapp'
@@ -35,6 +35,8 @@ urlpatterns = [
     path("trip-list/", TripListingView.as_view(), name="trip_list"),
 
     path("work-in-progress/", work_in_progress, name="work_in_progress"),
+
+    path("gallery/", Gallery.as_view(), name="gallery"),
 
 
 #DETAIL
