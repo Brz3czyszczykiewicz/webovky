@@ -1,14 +1,23 @@
 {% extends "base_with_bootstrap.html" %}
 {% load bootstrap5 %}
+{% load static %}
+{% block bootstrap5_title %} 
+Galerie
+{% endblock %}
+{% block bootstrap5_extra_head %}
+<link rel="stylesheet" href="{% static 'webapp/css/gallery.css' %}">
 
-{% block bootstrap5_title %} TAB {% endblock %}
+{% endblock %}
 
 {% block hlavni_nadpis %} NADPIS{% endblock %}
 
 {% block content %}
-
+<div class="image-gallery">
     {% for image in images %}
-        <img src="{{image}}">
-
-    {% endfor %}
+        <div class="photo">
+            <img src="{{image}}">    
+        </div>
+    {% endfor %}    
+    </div>
+        
 {% endblock %}

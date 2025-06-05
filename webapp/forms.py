@@ -54,6 +54,11 @@ class TripForm(forms.ModelForm):
         model = Trip
         fields = "__all__"
 
+        selected_images = forms.CharField(
+            required=False,
+            widget=forms.HiddenInput()
+        )
+
         labels = {
             "start_time": "Od",
             "end_time": "Do",

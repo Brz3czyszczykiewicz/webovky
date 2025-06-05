@@ -142,6 +142,10 @@ class TripCreateView(CreateView):
     model = Trip
     success_url = "/webapp/trip-list/"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["images_in_media"] = Trip.get_directory_images()
+        return context
 
 
 #----------------
