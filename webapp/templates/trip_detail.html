@@ -1,7 +1,12 @@
-{% extends "base_with_bootstrap.html" %}
+{% extends "base_with_bootstrap_old.html" %}
 {% load bootstrap5 %}
 
 {% block bootstrap5_title %} TAB {% endblock %}
+
+{% block bootstrap5_extra_head %}
+
+
+{% endblock %}
 
 
 
@@ -17,12 +22,51 @@
         <div class="col"><p>{{ trip.trip_short_description }}</p></div>&nbsp;&nbsp;
         <div class="col"><img src="{{ trip.image.url }}"></div> &nbsp;
         <div class="col"><p>{{ trip.trip_description }}</p></div>&nbsp;
+
+    <div id="tripCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        {% for image in trip_images %}
+          {% if image.image %}
+            <button type="button" data-bs-target="#tripCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
+              {% if forloop.first %}class="active" aria-current="true"{% endif %}
+              aria-label="Slide {{ forloop.counter }}">
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="carousel-inner">
+        {% for image in trip_images %}
+          {% if image.image %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ image.image }}" class="d-block w-100" alt="{{ image.caption }}">
+              {% if image.caption %}
+                <div class="carousel-caption d-none d-md-block">
+                  <p>{{ image.caption }}</p>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#tripCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Předchozí</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#tripCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Další</span>
+      </button>
+    </div>
+
         <div class="col"><p>{{ trip.start_time }}</p></div>&nbsp;
         <div class="col"><p>{{ trip.end_time }}</p></div>&nbsp;
         <div class="col"><p><strong>Náklady do {{ trip.price }} Kč</strong></p></div>&nbsp;
+
+
     </div>
 </div>
-
 
 
 <a href="{% url 'webapp:customer_create' trip.pk %}" class="btn btn-primary"> Nezávazná registrace </a>
@@ -30,5 +74,6 @@
 
 
 
-
 {% endblock %}
+
+

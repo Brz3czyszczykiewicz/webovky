@@ -50,14 +50,15 @@ class CustomerForm(forms.ModelForm):
         return cleaned_data
 
 class TripForm(forms.ModelForm):
+    selected_images = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput()
+    )
     class Meta:
         model = Trip
         fields = "__all__"
 
-        selected_images = forms.CharField(
-            required=False,
-            widget=forms.HiddenInput()
-        )
+
 
         labels = {
             "start_time": "Od",

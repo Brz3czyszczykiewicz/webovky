@@ -1,0 +1,32 @@
+.nav-section {
+    padding: 10px 0;
+}
+.nav-section p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.nav-link-custom {
+    display: inline-block;
+    margin: 4px 10px 4px 0;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #212529;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link-custom:hover {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.admin-nav, .customer-nav {
+    margin-bottom: 20px;
+}
+
+body {
+    background-color: #ffeeee;
+}

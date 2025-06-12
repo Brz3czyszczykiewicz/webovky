@@ -48,25 +48,15 @@ class Trip(models.Model):
 
 #2 created for trip to store multiple images
 class TripImage(models.Model):
-    relation = models.ForeignKey(Trip, related_name="trip_image", on_delete=models.CASCADE)
+    relation = models.ForeignKey(Trip, related_name="trip_images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to="", null=True, blank=True)
     caption = models.CharField(max_length=64, null=True, blank=True)
 
-    @classmethod
-    def get_directory_images(cls):
-        stored_images = Path(settings.MEDIA_ROOT)
-        if not stored_images:
-            return []
-        images = []
-        for file in stored_images.iterdir():
-            if file.is_file() and file.suffix.lower() in ('.jpg', '.jpeg', '.png'):
-                images.append(file.name)
-        return images
         
 
 
     def __str__(self):
-        return f"Image for{self.trip.trip_name}"
+        return f"Image for{self.relation.trip_name}"
 
     
 

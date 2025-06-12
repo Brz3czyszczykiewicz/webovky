@@ -1,0 +1,47 @@
+{% extends 'bootstrap5/bootstrap5.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block bootstrap5_extra_head %}
+    <link rel="stylesheet" href="{% static 'webapp/css/base.css' %}">
+{% endblock %}
+
+{% block bootstrap5_content %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col">
+                <h1 class="mt-3">{% block hlavni_nadpis %}(no nadpis){% endblock %}</h1>
+            </div>
+        </div>
+
+        <div class="col mb-1">
+            <div class="col">
+            <!-- PANEL FOR OWNER, NEED TO HIDE FROM CUSTOMER EVENTUALY -->
+            <p>ČÁST PRO ADMINA</p>
+            <a href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>&nbsp;&nbsp;
+            <a href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>&nbsp;&nbsp;
+            <a href="{% url 'webapp:trip_list' %}">Seznam cest</a>&nbsp;&nbsp;
+                {% block context_menu %}{% endblock %}&nbsp;&nbsp;
+            </div>
+
+            <div class="col">
+            <!-- CUSTOMER FIELD, SHOULD BE SEEN BY EVERYONE  -->
+            <p>ČÁST PRO ZÁKAZNÍKA</p>
+                <a href="{% url 'home_page' %}">Domů</a> &nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">Cesty</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:gallery' %}">Fotogalerie</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">Další služby</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">FAQ</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">O nás</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'webapp:work_in_progress' %}">Kontakt</a>&nbsp;&nbsp;&nbsp;
+
+            </div>
+
+        </div>
+
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+        {% block content %}(no content){% endblock %}
+        <!-- developer info -->
+    </div>
+{% endblock %}

@@ -4,18 +4,49 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-
 from webapp.forms import CustomerForm, TripForm
-from webapp.models import Customer, Trip, CustomerAdmin
+from webapp.models import Customer, Trip, TripImage
 from . import models
 from django.http import FileResponse
+from django.urls import reverse_lazy
 
-#fucked up stuff
 
+
+#----------------
+#MIXINS AND TESTS
+#----------------
 def send_image(request):
     image_path = 'webapp/media/město.jpg'
     return FileResponse(open(image_path, 'rb'), content_type='image/jpeg')
 
+
+class TripShowPicturesMixin:
+    """
+    adds database images into context in text form {settings.MEDIA_URL}{file.name}
+    form_valid needed for js, "selected_images" - html input, makes long string out
+    of names of images user clicked on
+
+    """
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["images_in_media"] = Trip.get_directory_images()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        trip = self.object
+        print(trip)
+        #need to watch for crash here or make selecting some mandatory (Attribute error)
+        selected = self.request.POST.get("selected_images")
+        print(selected)
+        selected_images = [name.strip() for name in selected.split(",") if name.strip()]
+        for name in selected_images:
+            TripImage.objects.create(
+                relation=trip,
+                image=name,
+                caption="",
+            )
+        return response
 
 #----------------
 #LIST VIEWS
@@ -26,7 +57,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context ["trips"] = Trip.objects.all()[:6]
+        context ["trips"] = Trip.objects.all()[:9]
         return context
 
 
@@ -86,6 +117,13 @@ class TripDetailView(DetailView):
     model = Trip
     context_object_name = "trip"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        trip = self.object
+        context["trip_images"] = trip.trip_images.all()
+        return context
+
+
 class TripAdminView(TripDetailView):
     template_name = "trip_detail_admin.html"
     model = Trip
@@ -135,27 +173,23 @@ class CustomerCreateView(CreateView):
 
 
 
-class TripCreateView(CreateView):
+class TripCreateView(TripShowPicturesMixin, CreateView):
     #class based form for trip creation, based on trip model
-    template_name = "trip_create.html"
+    template_name = "trip_create_alt.html"
     form_class = TripForm
     model = Trip
     success_url = "/webapp/trip-list/"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["images_in_media"] = Trip.get_directory_images()
-        return context
 
 
 #----------------
 #UPDATE VIEWS
 #----------------
-class TripUpdateView(UpdateView):
+class TripUpdateView(TripShowPicturesMixin, UpdateView):
     template_name = "trip_update.html"
     form_class = TripForm
     model = Trip
     success_url = "/webapp/trip-list/"
+
 
 class CustomerUpdateView(UpdateView):
     template_name = "customer_create.html"

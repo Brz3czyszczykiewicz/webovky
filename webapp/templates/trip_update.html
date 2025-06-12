@@ -1,14 +1,30 @@
-{% extends "base_with_bootstrap.html" %}
+{% extends "base_with_bootstrap_old.html" %}
 {% load bootstrap5 %}
+{% load static %}
 
 {% block bootstrap5_title %} Úprava cesty {% endblock %}
 
 {% block hlavni_nadpis %} Úprava cesty {% endblock %}
 
+{% block bootstrap5_extra_head %}
+    <script src="{% static 'webapp/js/tripCreate.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'webapp/css/tripCreate.css' %}">
+{% endblock %}
+
 {% block content %}
     <form method="post" enctype="multipart/form-data" action=".">
         {% csrf_token %}
         {% bootstrap_form form %}
+        <div id="gallery">
+            {% for image in images_in_media %}
+                <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
+                    <img src="{{ image }}" alt="{{ image }}">
+                </div>
+            {% empty %}
+                <p>Žádné obrázky v databázi</p>
+            {% endfor %}
+        </div>
+        <input type="hidden" name="selected_images" id="selected-images">
         <button type="submit" class="btn btn-primary">
             Upravit
         </button>

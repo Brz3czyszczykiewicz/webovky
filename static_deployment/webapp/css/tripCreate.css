@@ -1,0 +1,22 @@
+.gallery-image {
+  display: inline-block;
+  border: 3px solid transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.gallery-image.border-primary {
+  border-color: #0d6efd;
+}
+
+.gallery-image.border-secondary {
+  border-color: #6c757d;
+}
+
+.gallery-image img {
+  width: 220px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}

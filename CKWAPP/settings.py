@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / "static_deployment"
 
 
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
