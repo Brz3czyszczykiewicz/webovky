@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-from webapp.forms import CustomerForm, TripForm
+from webapp.forms import CustomerForm, TripForm, TripImageForm
 from webapp.models import Customer, Trip, TripImage
 from . import models
 from django.http import FileResponse
@@ -179,6 +179,12 @@ class TripCreateView(TripShowPicturesMixin, CreateView):
     form_class = TripForm
     model = Trip
     success_url = "/webapp/trip-list/"
+
+class UploadImageView(CreateView):
+    template_name = "image_upload.html"
+    model = TripImage
+    form_class = TripImageForm
+    success_url = "/gallery/"
 
 
 #----------------

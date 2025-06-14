@@ -1,12 +1,15 @@
-{% extends "base_with_bootstrap_old.html" %}
+{% extends "base_with_bootstrap.html" %}
 {% load bootstrap5 %}
 {% load static %}
 
 {% block bootstrap5_title %} Vytvoření cesty {% endblock %}
 
 {% block bootstrap5_extra_head %}
+    {{ super }}
     <script src="{% static 'webapp/js/tripCreate.js' %}"></script>
     <link rel="stylesheet" href="{% static 'webapp/css/tripCreate.css' %}">
+    <link rel="stylesheet" href="{% static 'webapp/css/base.css' %}">
+
 {% endblock %}
 
 {% block hlavni_nadpis %} Vytvoření cesty {% endblock %}

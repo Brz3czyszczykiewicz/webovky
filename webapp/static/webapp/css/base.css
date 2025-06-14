@@ -1,5 +1,9 @@
 .nav-section {
     padding: 10px 0;
+    font-family: "Poppins", "HelveticaNeue-Light", "Helvetica Neue Light",
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: bold;
+
 }
 .nav-section p {
     font-weight: bold;
@@ -10,23 +14,20 @@
     display: inline-block;
     margin: 4px 10px 4px 0;
     padding: 8px 12px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
+    background-color: transparent;
+    border-radius: 0;
     text-decoration: none;
     color: #212529;
     transition: background-color 0.2s, color 0.2s;
+    font-size: 16px;
 }
 
 .nav-link-custom:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: transparent;
+    color: #daa520;
     text-decoration: none;
 }
 
 .admin-nav, .customer-nav {
     margin-bottom: 20px;
-}
-
-body {
-    background-color: #ffeeee;
 }

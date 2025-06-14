@@ -1,15 +1,15 @@
 .bait {
-  width: 100%;           /* full width of the column */
-  aspect-ratio: 1 / 1;   /* make it a perfect square */
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertically center content */
-  align-items: center;     /* horizontally center content */
+  justify-content: center;
+  align-items: center;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
-  box-sizing: border-box;  /* include padding/border in size */
+  box-sizing: border-box;
   overflow: hidden;
   text-align: center;
   cursor: pointer;
@@ -18,6 +18,6 @@
 .bait img {
   max-width: 80%;
   max-height: 60%;
-  object-fit: cover;   /* keep entire image visible */
+  object-fit: cover;
   margin-bottom: 10px;
 }

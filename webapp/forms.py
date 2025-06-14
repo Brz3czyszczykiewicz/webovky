@@ -2,7 +2,7 @@ from pyclbr import Class
 from django.core.exceptions import ValidationError
 from django import forms
 
-from webapp.models import Customer, Trip
+from webapp.models import Customer, Trip, TripImage
 
 
 class CustomerForm(forms.ModelForm):
@@ -71,4 +71,13 @@ class TripForm(forms.ModelForm):
         widgets = {
             "start_time": forms.TextInput(attrs={'class': 'form-control'}),
             "end_time": forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class TripImageForm(forms.ModelForm):
+    class Meta:
+        model = TripImage
+        exclude = ["relation"]
+
+        labels = {
+            "caption": "Popis"
         }
