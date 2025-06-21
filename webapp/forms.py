@@ -81,3 +81,9 @@ class TripImageForm(forms.ModelForm):
         labels = {
             "caption": "Popis"
         }
+
+class CustomerNameSearchForm(forms.Form):
+    search = forms.CharField(
+        max_length=40,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )

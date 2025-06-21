@@ -2,7 +2,9 @@ from django.core.validators import MaxValueValidator, MaxLengthValidator, MinLen
 from django.db import models
 from pathlib import Path
 from django.conf import settings
+from django.db.models.query_utils import Q
 from django.utils import timezone
+
 
 
 #1 Model Trip ment for displaying dynamic data about expeditions organized by the agency
@@ -56,7 +58,7 @@ class TripImage(models.Model):
 
 
     def __str__(self):
-        return f"Image for{self.relation.trip_name}"
+        return f"Image for{self.relation.trip_name} named {self.image}"
 
     
 
@@ -74,6 +76,22 @@ class Guide(models.Model):
     def __str__(self):
         return f"{self.guide_name}"
 
+class CustomerQuerySet(models.QuerySet):
+    def search(self, query):
+        #text search
+        if query:
+            return self.filter(
+                Q(customer_first_name__icontains=query) |
+                Q(customer_last_name__icontains=query)
+            ).distinct()
+        return self
+
+class CustomerManager(models.Manager):
+    def get_queryset(self):
+        return CustomerQuerySet(self.model, using=self._db)
+    def search(self, query):
+        return self.get_queryset().search(query)
+
 # 4 Model Customer linked with Trip model to easily determine who is going where
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
@@ -86,6 +104,8 @@ class Customer(models.Model):
     customer_trip = models.ForeignKey('Trip', on_delete=models.CASCADE,
                                       null=True, blank=True, related_name='customer_trip')
     created = models.DateTimeField(auto_now_add=True)
+
+    objects = CustomerManager()
     @property
     def full_name(self):
         return f"{self.customer_first_name} {self.customer_last_name}"
@@ -93,16 +113,9 @@ class Customer(models.Model):
     def __str__(self):
         return self.full_name
 
-"""
-5 Model inherits from Trip, ment for internal administration, to show how 
-many people are interested in particular travel and who is assigned to guide them
-"""
-class TripDetail(Trip):
-    customers = models.ManyToManyField('Customer', blank=True)
-    guides = models.ManyToManyField('Guide', blank=True)
 
-class CustomerAdmin(Customer):
-    trips = models.ManyToManyField(Trip, blank=True)
+
+
 
 
 

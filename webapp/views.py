@@ -1,10 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-from webapp.forms import CustomerForm, TripForm, TripImageForm
+from webapp.forms import CustomerForm, TripForm, TripImageForm, CustomerNameSearchForm
 from webapp.models import Customer, Trip, TripImage
 from . import models
 from django.http import FileResponse
@@ -15,6 +17,7 @@ from django.urls import reverse_lazy
 #----------------
 #MIXINS AND TESTS
 #----------------
+@login_required
 def send_image(request):
     image_path = 'webapp/media/město.jpg'
     return FileResponse(open(image_path, 'rb'), content_type='image/jpeg')
@@ -62,15 +65,33 @@ class HomeView(TemplateView):
 
 
 
-class CustomerListingView(ListView):
+class CustomerListingView(LoginRequiredMixin, ListView):
     template_name = "customer_list.html"
     model = Customer
     paginate_by = 15
 
+    query_string = None
+
+
+
+    def get(self, request, *args, **kwargs):
+        print("GET: ", self.request.GET)
+        self.query_string = self.request.GET.get("search")
+        print(self.query_string)
+        print("KWARGS: ", self.kwargs)
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context ["trips"] = Trip.objects.all()
+        context ["form"] = CustomerNameSearchForm()
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        #add whatever hardcoded
+        queryset = queryset.search(self.query_string)
+        return queryset
 
 
 class TripListingView(ListView):
