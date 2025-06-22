@@ -7,7 +7,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from webapp.forms import CustomerForm, TripForm, TripImageForm, CustomerNameSearchForm
-from webapp.models import Customer, Trip, TripImage
+from webapp.models import Customer, Trip, TripImage, FreeImage
 from . import models
 from django.http import FileResponse
 from django.urls import reverse_lazy
@@ -206,9 +206,10 @@ class TripCreateView(LoginRequiredMixin, TripShowPicturesMixin, CreateView):
 
 class UploadImageView(LoginRequiredMixin, CreateView):
     template_name = "image_upload.html"
-    model = TripImage
+    model = FreeImage
     form_class = TripImageForm
-    success_url = "/gallery/"
+    success_url = "/webapp/gallery/"
+
 
 
 #----------------

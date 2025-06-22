@@ -6,7 +6,7 @@
 {% block hlavni_nadpis %} Přidej obrázek do registru{% endblock %}
 
 {% block content %}
-    <form method="post" action=".">
+    <form method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary">

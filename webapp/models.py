@@ -54,15 +54,12 @@ class TripImage(models.Model):
     image = models.ImageField(upload_to="", null=True, blank=True)
     caption = models.CharField(max_length=64, null=True, blank=True)
 
-        
-
-
     def __str__(self):
         return f"Image for{self.relation.trip_name} named {self.image}"
 
-    
-
-
+class FreeImage(models.Model):
+    image = models.ImageField(upload_to="", null=True, blank=True)
+    caption = models.CharField(max_length=64, null=True, blank=True)
 
 
 
@@ -95,8 +92,8 @@ class CustomerManager(models.Manager):
 # 4 Model Customer linked with Trip model to easily determine who is going where
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
-    customer_first_name = models.CharField(max_length=64, null=True, blank=True)
-    customer_last_name = models.CharField(max_length=64, null=True, blank=True)
+    customer_first_name = models.CharField(max_length=64)
+    customer_last_name = models.CharField(max_length=64)
     customer_count = models.PositiveIntegerField(default=1, validators=[MaxValueValidator(30)],)
     customer_email = models.EmailField(null=True, blank=True)
     customer_phone = models.CharField(max_length=14, null=True, blank=True, validators=[MinLengthValidator(9)])

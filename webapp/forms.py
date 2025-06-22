@@ -2,7 +2,7 @@ from pyclbr import Class
 from django.core.exceptions import ValidationError
 from django import forms
 
-from webapp.models import Customer, Trip, TripImage
+from webapp.models import Customer, Trip, TripImage, FreeImage
 
 
 class CustomerForm(forms.ModelForm):
@@ -75,8 +75,8 @@ class TripForm(forms.ModelForm):
 
 class TripImageForm(forms.ModelForm):
     class Meta:
-        model = TripImage
-        exclude = ["relation"]
+        model = FreeImage
+        fields = "__all__"
 
         labels = {
             "caption": "Popis"
