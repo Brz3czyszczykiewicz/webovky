@@ -12,6 +12,7 @@ from . import models
 from django.http import FileResponse
 from django.urls import reverse_lazy
 
+from .utils.context_processors.group_access import UserRightsMixin
 
 
 #----------------
@@ -65,12 +66,13 @@ class HomeView(TemplateView):
 
 
 
-class CustomerListingView(LoginRequiredMixin, ListView):
+class CustomerListingView(LoginRequiredMixin, UserRightsMixin, ListView):
     template_name = "customer_list.html"
     model = Customer
     paginate_by = 15
-
+    access_rights = ["test"]
     query_string = None
+
 
 
 
@@ -85,6 +87,7 @@ class CustomerListingView(LoginRequiredMixin, ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context ["trips"] = Trip.objects.all()
         context ["form"] = CustomerNameSearchForm()
+        context.update(self.get_context_rights())
         return context
 
     def get_queryset(self):
@@ -94,7 +97,7 @@ class CustomerListingView(LoginRequiredMixin, ListView):
         return queryset
 
 
-class TripListingView(ListView):
+class TripListingView(LoginRequiredMixin, ListView):
     template_name= "trip_list.html"
     model = Trip
 
@@ -118,7 +121,7 @@ class Gallery(ListView):
 #DETAIL VIEWS
 #------------------------
 
-class CustomerDetailView(DetailView):
+class CustomerDetailView(LoginRequiredMixin, DetailView):
     #lists every customer in database
     template_name = "customer_detail.html"
     model = Customer
@@ -145,7 +148,7 @@ class TripDetailView(DetailView):
         return context
 
 
-class TripAdminView(TripDetailView):
+class TripAdminView(LoginRequiredMixin, TripDetailView):
     template_name = "trip_detail_admin.html"
     model = Trip
 
@@ -194,14 +197,14 @@ class CustomerCreateView(CreateView):
 
 
 
-class TripCreateView(TripShowPicturesMixin, CreateView):
+class TripCreateView(LoginRequiredMixin, TripShowPicturesMixin, CreateView):
     #class based form for trip creation, based on trip model
     template_name = "trip_create_alt.html"
     form_class = TripForm
     model = Trip
     success_url = "/webapp/trip-list/"
 
-class UploadImageView(CreateView):
+class UploadImageView(LoginRequiredMixin, CreateView):
     template_name = "image_upload.html"
     model = TripImage
     form_class = TripImageForm
@@ -211,14 +214,14 @@ class UploadImageView(CreateView):
 #----------------
 #UPDATE VIEWS
 #----------------
-class TripUpdateView(TripShowPicturesMixin, UpdateView):
+class TripUpdateView(LoginRequiredMixin, TripShowPicturesMixin, UpdateView):
     template_name = "trip_update.html"
     form_class = TripForm
     model = Trip
     success_url = "/webapp/trip-list/"
 
 
-class CustomerUpdateView(UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "customer_create.html"
     form_class = CustomerForm
     model = Customer
@@ -230,12 +233,12 @@ class CustomerUpdateView(UpdateView):
 #DELETE VIEWS
 #----------------
 
-class TripDeleteView(DeleteView):
+class TripDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "trip_delete.html"
     model = Trip
     success_url = "/webapp/trip-list/"
 
-class CustomerDeleteView(DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     template_name="customer_delete.html"
     model = Customer
     success_url = "/webapp/customer-list/"

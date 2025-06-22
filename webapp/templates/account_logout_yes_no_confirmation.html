@@ -1,0 +1,19 @@
+{% extends "base_with_bootstrap.html" %}
+{% load bootstrap5 %}
+
+{% block bootstrap5_title %} YES NO LOGOUT {% endblock %}
+
+{% block hlavni_nadpis %} Potvrzení odhlašovacího procesu{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col text-danger">
+            Opravdu se chcete odhlásit z aplikace?
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Kliknutím na <a href="{% url 'logout' %}" class="btn-danger">Odhlásit</a>
+        </div>
+    </div>
+{% endblock %}

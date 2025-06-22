@@ -8,6 +8,7 @@
 
 
 {% block content %}
+    {% if user_has_rights %}
     <hr>
     <form method="get" action=".">
         <div class="row">
@@ -50,5 +51,9 @@
 
 
     {% include "snippets/pagination_v3.html" %}
+    {% else %}
+        {%include "snippets/no_access.html" %}
+    {% endif %}
+
 
 {% endblock %}

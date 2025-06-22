@@ -20,9 +20,8 @@
 <body>
     <div class="container">
 
-        <div class="row nav-section">
+        <div class="row nav-section mt-1">
             <div class="col-md-12 customer-nav">
-                <p>ČÁST PRO ZÁKAZNÍKA</p>
                 <a class="nav-link-custom" href="{% url 'home_page' %}">Domů</a>
                 <a class="nav-link-custom" href="{% url 'webapp:work_in_progress' %}">Cesty</a>
                 <a class="nav-link-custom" href="{% url 'webapp:gallery' %}">Fotogalerie</a>
@@ -31,13 +30,15 @@
                 <a class="nav-link-custom" href="{% url 'webapp:work_in_progress' %}">O nás</a>
                 <a class="nav-link-custom" href="{% url 'webapp:work_in_progress' %}">Kontakt</a>
             </div>
-
+            {% if user.is_authenticated %}
             <div class="col-md-12 admin-nav">
                 <p>ČÁST PRO ADMINA</p>
                 <a class="nav-link-custom" href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>
                 <a class="nav-link-custom" href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>
                 <a class="nav-link-custom" href="{% url 'webapp:trip_list' %}">Seznam cest</a>
                 <a class="nav-link-custom" href="{% url 'webapp:upload_image' %}">Přidat obrázek</a>
+            {% else %}
+            {% endif %}
                 {% block context_menu %}{% endblock %}
             </div>
         </div>
@@ -54,11 +55,14 @@
 
         {% block content %}(no content){% endblock %}
         <!-- developer info -->
+    {% include "snippets/user_info.html" %}
     </div>
+
 
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>
