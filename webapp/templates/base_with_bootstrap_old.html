@@ -14,17 +14,17 @@
             </div>
         </div>
 
-        <div class="col mb-1">
-            <div class="col">
+        <div class="row justify-content-center mb-1 text-center">
+            <div class="col-auto text-center">
             <!-- PANEL FOR OWNER, NEED TO HIDE FROM CUSTOMER EVENTUALY -->
-            <p>ČÁST PRO ADMINA</p>
-            <a href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>&nbsp;&nbsp;
-            <a href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>&nbsp;&nbsp;
-            <a href="{% url 'webapp:trip_list' %}">Seznam cest</a>&nbsp;&nbsp;
+                <p>ČÁST PRO ADMINA</p>
+                <a href="{% url 'webapp:customer_list' %}">Seznam kontaktů</a>&nbsp;&nbsp;
+                <a href="{% url 'webapp:trip_create' %}">Vytvořit cestu</a>&nbsp;&nbsp;
+                <a href="{% url 'webapp:trip_list' %}">Seznam cest</a>&nbsp;&nbsp;
                 {% block context_menu %}{% endblock %}&nbsp;&nbsp;
             </div>
 
-            <div class="col">
+            <div class="col-auto text-center">
             <!-- CUSTOMER FIELD, SHOULD BE SEEN BY EVERYONE  -->
             <p>ČÁST PRO ZÁKAZNÍKA</p>
                 <a href="{% url 'home_page' %}">Domů</a> &nbsp;

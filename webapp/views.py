@@ -137,6 +137,7 @@ def work_in_progress(request):
 
 
 class TripDetailView(DetailView):
+    #presentation to outsider
     template_name = "trip_detail.html"
     model = Trip
     context_object_name = "trip"
@@ -205,6 +206,10 @@ class TripCreateView(LoginRequiredMixin, TripShowPicturesMixin, CreateView):
     success_url = "/webapp/trip-list/"
 
 class UploadImageView(LoginRequiredMixin, CreateView):
+    """
+    frontend option for adding extra images to the database so they can be
+    linked to trips later
+    """
     template_name = "image_upload.html"
     model = FreeImage
     form_class = TripImageForm
@@ -221,6 +226,10 @@ class TripUpdateView(LoginRequiredMixin, TripShowPicturesMixin, UpdateView):
     model = Trip
     success_url = "/webapp/trip-list/"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["attached"] = TripImage.relation
+        return context
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "customer_create.html"

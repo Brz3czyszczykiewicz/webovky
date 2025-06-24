@@ -1,5 +1,6 @@
 {% extends "base_with_bootstrap.html" %}
 {% load bootstrap5 %}
+{% load none %}
 
 {% block bootstrap5_title %} TAB {% endblock %}
 
@@ -9,12 +10,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 mb-4">
-            <h3 class="name">Jméno: {{customer.full_name}}</h3>
-            <h3> Email: {{customer.customer_email}} </h3>
-            <h3> Telefon: {{customer.customer_phone}} </h3>
-            <h3> Rezervace: {{customer.customer_trip}} </h3>
+            <h3 class="name">Jméno: {{customer.full_name|none}}</h3>
+            <h3> Email: {{customer.customer_email|none}} </h3>
+            <h3> Telefon: {{customer.customer_phone|none}} </h3>
+            <h3> Rezervace: {{customer.customer_trip|none}} </h3>
             <h3> Rezervováno: {{ customer.created|date:"d.m.Y H:i"}}</h3>
-            <h3>Poznámka: {{customer.customer_message}}</h3>
+            <h3>Poznámka: {{customer.customer_message|none}}</h3>
 
         </div>
     </div>

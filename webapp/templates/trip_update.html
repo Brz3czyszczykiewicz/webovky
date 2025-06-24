@@ -15,19 +15,42 @@
     <form method="post" enctype="multipart/form-data" action=".">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <div id="gallery">
-            {% for image in images_in_media %}
-                <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
-                    <img src="{{ image }}" alt="{{ image }}">
-                </div>
-            {% empty %}
-                <p>Žádné obrázky v databázi</p>
-            {% endfor %}
-        </div>
-        <input type="hidden" name="selected_images" id="selected-images">
-        <button type="submit" class="btn btn-primary">
-            Upravit
+
+
+
+        <button type="button" id="toggle-gallery" class="btn btn-secondary mb-3">
+            Přidej obrázky
         </button>
+
+        <div id="gallery-wrapper" style="display: none;">
+            <div id="gallery" class="d-flex flex-wrap">
+                {% for image in images_in_media %}
+                    <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
+                        <img src="{{ image }}" alt="{{ image }}" width="100">
+                    </div>
+                {% empty %}
+                    <p>Žádné obrázky v databázi</p>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="selected_images" id="selected-images">
+        </div>
+
+        <button type="button" id="toggle-gallery" class="btn btn-secondary mb-3">
+            Aktuální výběr
+        </button>
+
+        <div id="gallery-wrapper" style="display: none;">
+            <div id="gallery" class="d-flex flex-wrap">
+                {% for image in attached %}
+                    <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
+                        <img src="{{ image }}" alt="{{ image }}" width="100">
+                    </div>
+                {% empty %}
+                    <p>Žádné obrázky v databázi</p>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="selected_images" id="selected-images">
+        </div>
 
 
     </form>
