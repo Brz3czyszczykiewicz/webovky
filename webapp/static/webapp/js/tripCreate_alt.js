@@ -2,8 +2,8 @@ console.log("tripCreate.js spuštěn");
 document.addEventListener("DOMContentLoaded", function () {
     console.log("jebat js");
 
-    const toggleBtn = document.getElementById("toggle-gallery");
-    const galleryWrapper = document.getElementById("gallery-wrapper");
+    const toggleBtn = document.getElementById("toggle-gallery-available");
+    const galleryWrapper = document.getElementById("gallery-wrapper-available");
 
     if (toggleBtn && galleryWrapper) {
         toggleBtn.addEventListener("click", () => {
@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const selected = new Set();
-    const gallery = document.getElementById("gallery");
-    const hiddenInput = document.getElementById("selected-images");
+    const gallery = document.getElementById("gallery-available");
+    const hiddenInput = document.getElementById("selected-images-available");
 
     if (gallery) {
         gallery.querySelectorAll(".gallery-image").forEach(imgDiv => {

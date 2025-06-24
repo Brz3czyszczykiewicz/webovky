@@ -7,8 +7,8 @@
 {% block hlavni_nadpis %} Úprava cesty {% endblock %}
 
 {% block bootstrap5_extra_head %}
-    <script src="{% static 'webapp/js/tripCreate_alt.js' %}"></script>
     <link rel="stylesheet" href="{% static 'webapp/css/tripCreate.css' %}">
+    <script src="{% static 'webapp/js/tripUpdate.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,12 +18,12 @@
 
 
 
-        <button type="button" id="toggle-gallery" class="btn btn-secondary mb-3">
+        <button type="button" id="toggle-gallery-available" class="btn btn-secondary mb-3">
             Přidej obrázky
         </button>
 
-        <div id="gallery-wrapper" style="display: none;">
-            <div id="gallery" class="d-flex flex-wrap">
+        <div id="gallery-wrapper-available" style="display: none;">
+            <div id="gallery-available" class="d-flex flex-wrap">
                 {% for image in images_in_media %}
                     <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
                         <img src="{{ image }}" alt="{{ image }}" width="100">
@@ -32,15 +32,15 @@
                     <p>Žádné obrázky v databázi</p>
                 {% endfor %}
             </div>
-            <input type="hidden" name="selected_images" id="selected-images">
+            <input type="hidden" name="selected_images_available" id="selected-images-available">
         </div>
 
-        <button type="button" id="toggle-gallery" class="btn btn-secondary mb-3">
+        <button type="button" id="toggle-gallery-attached" class="btn btn-danger mb-3">
             Aktuální výběr
         </button>
 
-        <div id="gallery-wrapper" style="display: none;">
-            <div id="gallery" class="d-flex flex-wrap">
+        <div id="gallery-wrapper-attached" style="display: none;">
+            <div id="gallery-attached" class="d-flex flex-wrap">
                 {% for image in attached %}
                     <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
                         <img src="{{ image }}" alt="{{ image }}" width="100">
@@ -49,8 +49,9 @@
                     <p>Žádné obrázky v databázi</p>
                 {% endfor %}
             </div>
-            <input type="hidden" name="selected_images" id="selected-images">
+            <input type="hidden" name="selected_images_attached" id="selected-images-attached">
         </div>
+        <button type="submit" class="btn btn-primary mb-3">Upravit</button>
 
 
     </form>

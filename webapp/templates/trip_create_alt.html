@@ -18,13 +18,13 @@
         {% bootstrap_form form %}
 
 
-        <button type="button" id="toggle-gallery" class="btn btn-secondary mb-3">
+        <button type="button" id="toggle-gallery-available" class="btn btn-secondary mb-3">
             Vyber obrázky
         </button>
 
 
-        <div id="gallery-wrapper" style="display: none;">
-            <div id="gallery" class="d-flex flex-wrap">
+        <div id="gallery-wrapper-available" style="display: none;">
+            <div id="gallery-available" class="d-flex flex-wrap">
                 {% for image in images_in_media %}
                     <div class="gallery-image m-2 border-secondary" data-filename="{{ image }}">
                         <img src="{{ image }}" alt="{{ image }}" width="100">
@@ -33,7 +33,7 @@
                     <p>Žádné obrázky v databázi</p>
                 {% endfor %}
             </div>
-            <input type="hidden" name="selected_images" id="selected-images">
+            <input type="hidden" name="selected_images_available" id="selected-images-available">
         </div>
 
 

@@ -42,6 +42,7 @@ class TripShowPicturesMixin:
         print(trip)
         #need to watch for crash here or make selecting some mandatory (Attribute error)
         selected = self.request.POST.get("selected_images")
+        
         print(selected)
         selected_images = [name.strip() for name in selected.split(",") if name.strip()]
         for name in selected_images:
@@ -227,9 +228,25 @@ class TripUpdateView(LoginRequiredMixin, TripShowPicturesMixin, UpdateView):
     success_url = "/webapp/trip-list/"
 
     def get_context_data(self, **kwargs):
+        """
+        add all TripImage instances attached to Trip
+        """
         context = super().get_context_data(**kwargs)
-        context["attached"] = TripImage.relation
+        context["attached"] = self.object.trip_images.all()
         return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        to_be_removed = self.request.POST.get("selected_images_attached")
+        if to_be_removed:
+            filenames = to_be_removed.split(",")
+            TripImage.objects.filter(
+                relation=self.object,
+                image__in=filenames
+            ).delete()
+        return response
+
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "customer_create.html"
