@@ -21,7 +21,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from webapp.views import HomeView
-from CKWAPP import views
+from CKWAPP.views import (LoginView, LogoutView, ConfirmLogoutView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,9 +31,9 @@ urlpatterns = [
     path("", HomeView.as_view(), name="home_page"),
 
     #LOGIN/OUT VIEWS
-    path("login/", views.LoginView.as_view(), name="login"),
-    path("logout/", views.LogoutView.as_view(), name="logout"),
-    path("yes-no-confirmation/", views.ConfirmLogoutView.as_view(), name="yes_no_confirmation"),
+    path("login/", LoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("yes-no-confirmation/", ConfirmLogoutView.as_view(), name="yes_no_confirmation"),
 
 
 

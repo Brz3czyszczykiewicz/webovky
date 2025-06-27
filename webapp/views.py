@@ -29,6 +29,7 @@ class TripShowPicturesMixin:
     adds database images into context in text form {settings.MEDIA_URL}{file.name}
     form_valid needed for js, "selected_images" - html input, makes long string out
     of names of images user clicked on
+    added option to remove via update view, same principle
 
     """
     def get_context_data(self, **kwargs):
@@ -71,8 +72,21 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context ["trips"] = Trip.objects.all()[:9]
+        context ["trips"] = Trip.objects.order_by("-trip_id")[:6]
         return context
+
+class TripListView(HomeView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context ["trips"] = Trip.objects.all()
+        return context
+
+class Confirmation(TemplateView):
+    template_name = "success.html"
+
+
 
 
 
@@ -180,7 +194,7 @@ class CustomerCreateView(CreateView):
     template_name = "customer_create.html"
     form_class = CustomerForm
     model = Customer
-    success_url = "/webapp/customer-list/"
+    success_url = "/webapp/success/"
 
     def dispatch(self, request, *args, **kwargs):
         """
