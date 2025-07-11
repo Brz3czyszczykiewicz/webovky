@@ -16,12 +16,8 @@ from .utils.context_processors.group_access import UserRightsMixin
 
 
 #----------------
-#MIXINS AND TESTS
+#MIXINS
 #----------------
-@login_required
-def send_image(request):
-    image_path = 'webapp/media/město.jpg'
-    return FileResponse(open(image_path, 'rb'), content_type='image/jpeg')
 
 
 class TripShowPicturesMixin:
@@ -69,6 +65,7 @@ class TripShowPicturesMixin:
 
 class HomeView(TemplateView):
     template_name = "home.html"
+    #lists 6 latest trips 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,7 +73,9 @@ class HomeView(TemplateView):
         return context
 
 class TripListView(HomeView):
-    template_name = "home.html"
+    """
+    lists all trips starting from oldest, inerits html since there arent any extra functions at home page yet
+    """
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,6 +83,7 @@ class TripListView(HomeView):
         return context
 
 class Confirmation(TemplateView):
+    #basic response for user, need to make better looking later
     template_name = "success.html"
 
 
@@ -91,6 +91,9 @@ class Confirmation(TemplateView):
 
 
 class CustomerListingView(LoginRequiredMixin, UserRightsMixin, ListView):
+    """
+    lists all orders, added trip into context for extra info, basic text search available
+    """
     template_name = "customer_list.html"
     model = Customer
     paginate_by = 15
@@ -116,7 +119,7 @@ class CustomerListingView(LoginRequiredMixin, UserRightsMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        #add whatever hardcoded
+        #add whatever hardcoded if needed
         queryset = queryset.search(self.query_string)
         return queryset
 
@@ -126,11 +129,13 @@ class TripListingView(LoginRequiredMixin, ListView):
     model = Trip
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        # done to show number of reservations
         context = super().get_context_data(object_list=object_list, **kwargs)
         context["customers"] = Customer.objects.all()
         return context
 
 class Gallery(ListView):
+    #shows every picture in media
     template_name="gallery.html"
     model = Trip
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -200,7 +205,7 @@ class CustomerCreateView(CreateView):
         """
         CustomerCreateView will only get triggered by the user when accessing through trip detail
         purpose of this function is to get trip pk so reservation can be linked with specific trip
-        later in form valid
+        later in form valid - less clicking for user
         """
         pk = self.kwargs.get("pk")
         #condition for testing purposes, if view is accessed through detail it will never be used
@@ -282,5 +287,14 @@ class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     template_name="customer_delete.html"
     model = Customer
     success_url = "/webapp/customer-list/"
+
+#----------------
+#TESTS
+#----------------
+
+@login_required
+def send_image(request):
+    image_path = 'webapp/media/město.jpg'
+    return FileResponse(open(image_path, 'rb'), content_type='image/jpeg')
 
 
